@@ -1,0 +1,586 @@
+{
+  "name": "AI Health Symptom Checker & Wellness Tracker - COMPLETE",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_SHEET_ID_HERE",
+          "mode": "list",
+          "cachedResultName": "AI Health Tracker"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=4",
+          "mode": "list",
+          "cachedResultName": "Knowledge Map"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Log ID": "={{ $json.logId }}",
+            "Timestamp": "={{ $json.timestamp }}",
+            "Student ID": "={{ $json.studentId }}",
+            "Symptoms Input": "={{ $json.symptomsEntered }}",
+            "Condition 1": "={{ $json.condition1 }}",
+            "Remedy 1A": "={{ $json.remedy1a }}",
+            "Remedy 1B": "={{ $json.remedy1b }}",
+            "Condition 2": "={{ $json.condition2 }}",
+            "Remedy 2A": "={{ $json.remedy2a }}",
+            "Remedy 2B": "={{ $json.remedy2b }}",
+            "Condition 3": "={{ $json.condition3 }}",
+            "Remedy 3A": "={{ $json.remedy3a }}",
+            "Remedy 3B": "={{ $json.remedy3b }}",
+            "Shared Lifestyle Factor": "={{ $json.lifestyle }}"
+          }
+        },
+        "options": {}
+      },
+      "name": "Log to Knowledge Map",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1776,
+        1376
+      ],
+      "id": "1d7b150a-2566-4729-96f3-816231aa8932",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lzmyq8fbhsBAgcA1",
+          "name": "Google Sheets account 3"
+        }
+      },
+      "notes": "Builds the Symptom → Condition → Remedy knowledge base over time."
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_SHEET_ID_HERE",
+          "mode": "list",
+          "cachedResultName": "AI Health Tracker"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=5",
+          "mode": "list",
+          "cachedResultName": "Ethics & Bias Log"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Log ID": "={{ $json.logId }}",
+            "Timestamp": "={{ $json.timestamp }}",
+            "Student ID": "={{ $json.studentId }}",
+            "Age Range": "={{ $json.ageRange }}",
+            "Gender": "={{ $json.gender }}",
+            "Bias Note": "={{ $json.biasNote }}",
+            "Risk Flag": "={{ $json.riskFlag }}",
+            "Conditions Predicted": "={{ $json.condition1 + ', ' + $json.condition2 + ', ' + $json.condition3 }}",
+            "See Doctor Recommendation": "={{ $json.seeDoctor }}",
+            "Disclaimer Present": "={{ $json.disclaimerAdded }}",
+            "Confidence Scores": "={{ $json.confidence1 + ' | ' + $json.confidence2 + ' | ' + $json.confidence3 }}"
+          }
+        },
+        "options": {}
+      },
+      "name": "Log to Ethics & Bias Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1776,
+        1568
+      ],
+      "id": "58297ca9-0b1b-453d-9f0e-c2cba4d8e068",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lzmyq8fbhsBAgcA1",
+          "name": "Google Sheets account 3"
+        }
+      },
+      "notes": "Tracks bias notes and fairness flags per prediction. Connects to Module 6: Ethics & Bias from Lecture 23."
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_SHEET_ID_HERE",
+          "mode": "list",
+          "cachedResultName": "AI Health Tracker"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=6",
+          "mode": "list",
+          "cachedResultName": "Canva Report Data"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Report ID": "={{ 'RPT' + Date.now() }}",
+            "Generated On": "={{ $json.timestamp }}",
+            "Student Name": "={{ $json.studentName }}",
+            "Student ID": "={{ $json.studentId }}",
+            "Report Summary": "={{ $json.reportSummary }}",
+            "Top Condition": "={{ $json.condition1 + ' (' + $json.prob1 + ')' }}",
+            "Total Wellness Score": "={{ $json.totalScore }}",
+            "Wellness Trend": "={{ $json.wellnessTrend }}",
+            "Key Tip": "={{ $json.tip1 }}",
+            "Risk Level": "={{ $json.riskFlag }}",
+            "See Doctor": "={{ $json.seeDoctor }}",
+            "Disclaimer": "={{ $json.disclaimer }}"
+          }
+        },
+        "options": {}
+      },
+      "name": "Log to Canva Report Data",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1632,
+        1712
+      ],
+      "id": "9ef38af0-b553-4576-baab-bbf21369c5e3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lzmyq8fbhsBAgcA1",
+          "name": "Google Sheets account 3"
+        }
+      },
+      "notes": "Feeds data for Canva wellness report export. Use this sheet as a Canva data source."
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_SHEET_ID_HERE",
+          "mode": "list",
+          "cachedResultName": "AI Health Tracker"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Form Responses"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "name": "Log to Form Responses1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        608,
+        1184
+      ],
+      "id": "b7324226-816f-4443-93ae-a02678a73825",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lzmyq8fbhsBAgcA1",
+          "name": "Google Sheets account 3"
+        }
+      },
+      "notes": "TRIGGER: Google Form submission auto-appends to this sheet. Connect your Google Form to this spreadsheet as its response destination."
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// NODE: Format ChatGPT Prompt\n// PURPOSE: Extract all form fields and build the AI prompt\n// ============================================================\n\nconst formData = $input.first().json;\n\n// --- SYMPTOM EXTRACTION (30+ symptoms) ---\nconst symptoms = [];\nconst symptomFields = [\n  'Headache', 'Fatigue', 'Eye strain', 'Dizziness', 'Brain fog',\n  'Nausea', 'Fever', 'Cough', 'Sore throat', 'Muscle ache',\n  'Joint pain', 'Anxiety', 'Insomnia', 'Difficulty concentrating',\n  'Blurred vision', 'Runny nose', 'Chest tightness', 'Shortness of breath',\n  'Back pain', 'Neck pain', 'Stomach ache', 'Bloating', 'Loss of appetite',\n  'Heart palpitations', 'Cold hands/feet', 'Excessive sweating',\n  'Skin rash', 'Hair loss', 'Low energy', 'Mood swings',\n  'Irritability', 'Poor memory', 'Dry eyes', 'Dry skin'\n];\nfor (const s of symptomFields) {\n  if (formData[s] === 'Yes') symptoms.push(s);\n}\n\n// --- CONTEXT FIELDS ---\nconst studentEmail = formData['Email address'] || formData['Email'] || '';\nconst studentName  = formData['Your Name'] || formData['Name'] || 'Student';\nconst sleepHours   = formData['Sleep hours last night'] || 'Not provided';\nconst stressLevel  = formData['Stress level today (1-10)'] || 'Not provided';\nconst waterIntake  = formData['Water intake today'] || 'Not provided';\nconst screenTime   = formData['Screen time today (hours)'] || 'Not provided';\nconst severity     = formData['Symptom severity (1-10)'] || 'Moderate';\nconst duration     = formData['How long have you had these symptoms?'] || 'Not specified';\nconst ageRange     = formData['Age range'] || 'Not specified';\nconst gender       = formData['Gender'] || 'Not specified';\nconst exercise     = formData['Exercise today?'] || 'Not specified';\nconst diet         = formData['Meal quality today'] || 'Not specified';\nconst medCondition = formData['Any known medical conditions?'] || 'None';\nconst timestamp    = formData['Timestamp'] || new Date().toISOString();\n\n// --- BUILD AI PROMPT ---\nconst prompt = `You are a student wellness assistant trained to analyze health symptoms and provide probabilistic condition assessments. You are NOT a replacement for a doctor.\n\n═══════════════════════════════════\nSTUDENT INPUT\n═══════════════════════════════════\nStudent Name: ${studentName}\nAge Range: ${ageRange}\nGender: ${gender}\nSymptoms Reported: ${symptoms.join(', ') || 'None reported'}\nSleep Last Night: ${sleepHours} hours\nStress Level: ${stressLevel}/10\nWater Intake Today: ${waterIntake}\nScreen Time Today: ${screenTime} hours\nExercise Today: ${exercise}\nDiet Quality: ${diet}\nSymptom Duration: ${duration}\nSeverity: ${severity}/10\nKnown Conditions: ${medCondition}\n\n═══════════════════════════════════\nSTEP 1 — SYMPTOM ANALYSIS\n═══════════════════════════════════\nList which body systems are affected by the reported symptoms.\n\n═══════════════════════════════════\nSTEP 2 — BIAS & FAIRNESS CHECK\n═══════════════════════════════════\nNote any demographic biases that may influence your prediction. Ensure analysis is fair regardless of age or gender. Output:\nBIAS_NOTE: [one sentence on fairness consideration]\n\n═══════════════════════════════════\nSTEP 3 — PROBABILISTIC CONDITION ASSESSMENT\n═══════════════════════════════════\nReturn exactly 3 conditions in this exact pipe-separated format:\nCONDITION_1: [name] | PROBABILITY_1: [X%] | CONFIDENCE_1: [High/Medium/Low]\nCONDITION_2: [name] | PROBABILITY_2: [X%] | CONFIDENCE_2: [High/Medium/Low]\nCONDITION_3: [name] | PROBABILITY_3: [X%] | CONFIDENCE_3: [High/Medium/Low]\nREASONING: [2-3 sentences explaining the assessment]\n\n═══════════════════════════════════\nSTEP 4 — KNOWLEDGE MAP (Symptom → Condition → Remedy)\n═══════════════════════════════════\nFor each condition provide remedies and lifestyle factors:\nREMEDY_1A: [remedy for condition 1]\nREMEDY_1B: [second remedy for condition 1]\nREMEDY_2A: [remedy for condition 2]\nREMEDY_2B: [second remedy for condition 2]\nREMEDY_3A: [remedy for condition 3]\nREMEDY_3B: [second remedy for condition 3]\nLIFESTYLE: [one lifestyle change applicable across conditions]\n\n═══════════════════════════════════\nSTEP 5 — PERSONALIZED WELLNESS TIPS (Generative AI)\n═══════════════════════════════════\nGive 3 tips personalized to this student's sleep, stress, hydration, screen time, exercise, and diet:\nTIP_1: [personalized tip]\nTIP_2: [personalized tip]\nTIP_3: [personalized tip]\n\n═══════════════════════════════════\nSTEP 6 — RISK ASSESSMENT\n═══════════════════════════════════\nRISK_FLAG: [Low / Medium / High]\nRISK_REASON: [one sentence explanation]\nSEE_DOCTOR: [Yes / No / If symptoms persist]\n\n═══════════════════════════════════\nSTEP 7 — WELLNESS SCORE (out of 100)\n═══════════════════════════════════\nSLEEP_SCORE: [X/25]\nHYDRATION_SCORE: [X/25]\nSTRESS_SCORE: [X/25]\nSCREEN_SCORE: [X/25]\nTOTAL_SCORE: [X/100]\nWELLNESS_TREND: [Improving / Stable / Declining — based on current data]\n\n═══════════════════════════════════\nSTEP 8 — CANVA REPORT SUMMARY\n═══════════════════════════════════\nGenerate a brief wellness report paragraph (3-5 sentences) suitable for a Canva report card:\nREPORT_SUMMARY: [paragraph]\n\n═══════════════════════════════════\n⚠️ DISCLAIMER (must appear in every response)\n═══════════════════════════════════\nDISCLAIMER: This analysis is generated by an AI assistant for educational and wellness awareness purposes only. It is NOT a medical diagnosis. Probabilities are estimates based on symptom patterns and should not replace professional medical advice. If you are experiencing severe or persistent symptoms, please consult a qualified healthcare professional immediately.\n═══════════════════════════════════`;\n\nreturn [{\n  json: {\n    prompt,\n    studentEmail,\n    studentName,\n    studentId: timestamp,\n    ageRange,\n    gender,\n    rawSymptoms: symptoms.join(', '),\n    sleepHours,\n    stressLevel,\n    waterIntake,\n    screenTime,\n    exercise,\n    diet,\n    severity,\n    duration,\n    medCondition\n  }\n}];"
+      },
+      "name": "Format ChatGPT Prompt1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        1184
+      ],
+      "id": "5e200be9-8a06-4e97-814a-04e9bde62ab1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1024,
+        1184
+      ],
+      "id": "6843a2c7-3e07-41ae-9b46-16789a1658fb",
+      "name": "Basic LLM Chain1"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        1392
+      ],
+      "id": "f993a7bc-4514-4320-aa0c-4cab6303143d",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "DqcRaAmLlRDbVh8J",
+          "name": "Groq account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// NODE: Parse AI Response\n// PURPOSE: Extract all structured fields from Groq/LLM output\n// ============================================================\n\nconst aiResponse = $input.first().json.text ||\n                   ($input.first().json.choices && $input.first().json.choices[0].message.content) ||\n                   '';\nconst promptData = $('Format ChatGPT Prompt1').first().json;\n\nfunction extract(pattern, defaultValue = 'Not found') {\n  const match = aiResponse.match(pattern);\n  return match ? match[1].trim() : defaultValue;\n}\n\n// --- Conditions ---\nconst condition1   = extract(/CONDITION_1:\\s*([^|\\n]+)/);\nconst prob1        = extract(/PROBABILITY_1:\\s*(\\d+%)/);\nconst confidence1  = extract(/CONFIDENCE_1:\\s*([\\w]+)/);\nconst condition2   = extract(/CONDITION_2:\\s*([^|\\n]+)/);\nconst prob2        = extract(/PROBABILITY_2:\\s*(\\d+%)/);\nconst confidence2  = extract(/CONFIDENCE_2:\\s*([\\w]+)/);\nconst condition3   = extract(/CONDITION_3:\\s*([^|\\n]+)/);\nconst prob3        = extract(/PROBABILITY_3:\\s*(\\d+%)/);\nconst confidence3  = extract(/CONFIDENCE_3:\\s*([\\w]+)/);\nconst reasoning    = extract(/REASONING:\\s*([^\\n]+)/);\n\n// --- Remedies ---\nconst remedy1a  = extract(/REMEDY_1A:\\s*([^\\n]+)/);\nconst remedy1b  = extract(/REMEDY_1B:\\s*([^\\n]+)/);\nconst remedy2a  = extract(/REMEDY_2A:\\s*([^\\n]+)/);\nconst remedy2b  = extract(/REMEDY_2B:\\s*([^\\n]+)/);\nconst remedy3a  = extract(/REMEDY_3A:\\s*([^\\n]+)/);\nconst remedy3b  = extract(/REMEDY_3B:\\s*([^\\n]+)/);\nconst lifestyle = extract(/LIFESTYLE:\\s*([^\\n]+)/);\n\n// --- Wellness Tips ---\nconst tip1 = extract(/TIP_1:\\s*([^\\n]+)/);\nconst tip2 = extract(/TIP_2:\\s*([^\\n]+)/);\nconst tip3 = extract(/TIP_3:\\s*([^\\n]+)/);\n\n// --- Risk ---\nconst riskFlag   = extract(/RISK_FLAG:\\s*([\\w]+)/);\nconst riskReason = extract(/RISK_REASON:\\s*([^\\n]+)/);\nconst seeDoctor  = extract(/SEE_DOCTOR:\\s*([^\\n]+)/);\n\n// --- Scores ---\nconst sleepScore      = extract(/SLEEP_SCORE:\\s*(\\d+\\/25)/);\nconst hydrationScore  = extract(/HYDRATION_SCORE:\\s*(\\d+\\/25)/);\nconst stressScore     = extract(/STRESS_SCORE:\\s*(\\d+\\/25)/);\nconst screenScore     = extract(/SCREEN_SCORE:\\s*(\\d+\\/25)/);\nconst totalScore      = extract(/TOTAL_SCORE:\\s*(\\d+\\/100)/);\nconst wellnessTrend   = extract(/WELLNESS_TREND:\\s*([^\\n]+)/);\n\n// --- Ethics ---\nconst biasNote     = extract(/BIAS_NOTE:\\s*([^\\n]+)/);\nconst disclaimer   = extract(/DISCLAIMER:\\s*([^\\n]+)/);\n\n// --- Canva Report ---\nconst reportSummary = extract(/REPORT_SUMMARY:\\s*([^\\n]+)/);\n\nreturn [{\n  json: {\n    logId: 'LOG' + Date.now(),\n    timestamp: new Date().toISOString(),\n    studentId: promptData.studentId,\n    studentName: promptData.studentName,\n    studentEmail: promptData.studentEmail,\n    ageRange: promptData.ageRange,\n    gender: promptData.gender,\n    symptomsEntered: promptData.rawSymptoms,\n    medCondition: promptData.medCondition,\n    condition1, prob1, confidence1,\n    condition2, prob2, confidence2,\n    condition3, prob3, confidence3,\n    reasoning,\n    remedy1a, remedy1b,\n    remedy2a, remedy2b,\n    remedy3a, remedy3b,\n    lifestyle,\n    tip1, tip2, tip3,\n    wellnessTips: `${tip1} | ${tip2} | ${tip3}`,\n    riskFlag, riskReason, seeDoctor,\n    sleepScore, hydrationScore, stressScore, screenScore, totalScore,\n    wellnessTrend,\n    biasNote,\n    disclaimer,\n    reportSummary,\n    sleepHours: promptData.sleepHours,\n    stressLevel: promptData.stressLevel,\n    waterIntake: promptData.waterIntake,\n    screenTime: promptData.screenTime,\n    exercise: promptData.exercise,\n    diet: promptData.diet,\n    severity: promptData.severity,\n    duration: promptData.duration,\n    fullResponse: aiResponse,\n    disclaimerAdded: 'Yes',\n    promptVersion: 'v2.0'\n  }\n}];"
+      },
+      "name": "Parse AI Response1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1392,
+        1184
+      ],
+      "id": "e2eecd12-65c6-441f-a229-570099a7b0f5"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_SHEET_ID_HERE",
+          "mode": "list",
+          "cachedResultName": "AI Health Tracker"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=2",
+          "mode": "list",
+          "cachedResultName": "AI Output Log"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Log ID": "={{ $json.logId }}",
+            "Timestamp": "={{ $json.timestamp }}",
+            "Student ID": "={{ $json.studentId }}",
+            "Student Name": "={{ $json.studentName }}",
+            "Age Range": "={{ $json.ageRange }}",
+            "Gender": "={{ $json.gender }}",
+            "Symptoms Entered": "={{ $json.symptomsEntered }}",
+            "Known Conditions": "={{ $json.medCondition }}",
+            "Condition 1": "={{ $json.condition1 }}",
+            "Probability 1": "={{ $json.prob1 }}",
+            "Confidence 1": "={{ $json.confidence1 }}",
+            "Condition 2": "={{ $json.condition2 }}",
+            "Probability 2": "={{ $json.prob2 }}",
+            "Confidence 2": "={{ $json.confidence2 }}",
+            "Condition 3": "={{ $json.condition3 }}",
+            "Probability 3": "={{ $json.prob3 }}",
+            "Confidence 3": "={{ $json.confidence3 }}",
+            "Reasoning": "={{ $json.reasoning }}",
+            "Remedies Summary": "={{ $json.remedy1a + ' | ' + $json.remedy1b + ' | ' + $json.remedy2a + ' | ' + $json.remedy2b + ' | ' + $json.remedy3a + ' | ' + $json.remedy3b }}",
+            "Lifestyle Tip": "={{ $json.lifestyle }}",
+            "Wellness Tips": "={{ $json.wellnessTips }}",
+            "Risk Flag": "={{ $json.riskFlag }}",
+            "Risk Reason": "={{ $json.riskReason }}",
+            "See Doctor": "={{ $json.seeDoctor }}",
+            "Bias Note": "={{ $json.biasNote }}",
+            "Disclaimer Added": "={{ $json.disclaimerAdded }}",
+            "Wellness Trend": "={{ $json.wellnessTrend }}",
+            "Total Score": "={{ $json.totalScore }}",
+            "Prompt Version": "={{ $json.promptVersion }}"
+          }
+        },
+        "options": {}
+      },
+      "name": "Log to AI Output Log1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1776,
+        816
+      ],
+      "id": "d1c248dc-74e7-4369-a7e2-6bdb197b9b42",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lzmyq8fbhsBAgcA1",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_SHEET_ID_HERE",
+          "mode": "list",
+          "cachedResultName": "AI Health Tracker"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=3",
+          "mode": "list",
+          "cachedResultName": "Wellness Tracker"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Entry ID": "={{ 'WT' + Date.now() }}",
+            "Date": "={{ $json.timestamp }}",
+            "Student ID": "={{ $json.studentId }}",
+            "Student Name": "={{ $json.studentName }}",
+            "Sleep Hours": "={{ $json.sleepHours }}",
+            "Stress Level": "={{ $json.stressLevel }}",
+            "Water Intake": "={{ $json.waterIntake }}",
+            "Screen Time": "={{ $json.screenTime }}",
+            "Exercise": "={{ $json.exercise }}",
+            "Diet Quality": "={{ $json.diet }}",
+            "Symptoms Today": "={{ $json.symptomsEntered }}",
+            "Severity": "={{ $json.severity }}",
+            "Sleep Score": "={{ $json.sleepScore }}",
+            "Hydration Score": "={{ $json.hydrationScore }}",
+            "Stress Score": "={{ $json.stressScore }}",
+            "Screen Score": "={{ $json.screenScore }}",
+            "Total Wellness Score": "={{ $json.totalScore }}",
+            "Wellness Trend": "={{ $json.wellnessTrend }}",
+            "Risk Flag": "={{ $json.riskFlag }}"
+          }
+        },
+        "options": {}
+      },
+      "name": "Log to Wellness Tracker1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1776,
+        1184
+      ],
+      "id": "30bdb752-0d5f-4862-aa07-84bc78c938c0",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lzmyq8fbhsBAgcA1",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// NODE: Calculate Reward Points\n// PURPOSE: Point-based habit reward system (Reinforcement Learning)\n// Connects to Module 4: Reinforcement Learning concepts (Lecture 19)\n// ============================================================\n\nconst data = $input.first().json;\n\n// Parse numeric values safely\nfunction parseNum(val) {\n  if (typeof val === 'number') return val;\n  const m = String(val).match(/\\d+(\\.\\d+)?/);\n  return m ? parseFloat(m[0]) : 0;\n}\n\nconst sleepHours  = parseNum(data.sleepHours);\nconst stressLevel = parseNum(data.stressLevel);\nconst screenTime  = parseNum(data.screenTime);\nconst totalScore  = parseNum(data.totalScore);\nconst severity    = parseNum(data.severity);\n\nlet points = 0;\nconst badges = [];\nconst breakdown = [];\n\n// --- Sleep (max 15 pts) ---\nif (sleepHours >= 8) {\n  points += 15; badges.push('Sleep Champion 🌙');\n  breakdown.push('Sleep 8h+: +15');\n} else if (sleepHours >= 7) {\n  points += 10; badges.push('Good Sleeper 😴');\n  breakdown.push('Sleep 7-8h: +10');\n} else if (sleepHours >= 6) {\n  points += 5;\n  breakdown.push('Sleep 6-7h: +5');\n}\n\n// --- Hydration (max 15 pts) ---\nconst wi = String(data.waterIntake).toLowerCase();\nif (wi.includes('3l') || wi.includes('3+ l') || wi.includes('3 l')) {\n  points += 15; badges.push('Super Hydrated 💧');\n  breakdown.push('Water 3L+: +15');\n} else if (wi.includes('2l') || wi.includes('2-3') || wi.includes('2 l')) {\n  points += 10; badges.push('Well Hydrated 💦');\n  breakdown.push('Water 2L+: +10');\n} else if (wi.includes('1l') || wi.includes('1-2')) {\n  points += 5;\n  breakdown.push('Water 1L+: +5');\n}\n\n// --- Screen Time (max 10 pts) ---\nif (screenTime < 2) {\n  points += 10; badges.push('Screen Detox 📵');\n  breakdown.push('Screen <2h: +10');\n} else if (screenTime <= 4) {\n  points += 7; badges.push('Low Screen Time 📱');\n  breakdown.push('Screen 2-4h: +7');\n} else if (screenTime <= 6) {\n  points += 3;\n  breakdown.push('Screen 4-6h: +3');\n}\n\n// --- Stress (max 10 pts) ---\nif (stressLevel <= 3) {\n  points += 10; badges.push('Zen Master 🧘');\n  breakdown.push('Stress ≤3: +10');\n} else if (stressLevel <= 5) {\n  points += 7; badges.push('Chill Vibes 😌');\n  breakdown.push('Stress ≤5: +7');\n} else if (stressLevel <= 7) {\n  points += 3;\n  breakdown.push('Stress ≤7: +3');\n}\n\n// --- Exercise Bonus (max 10 pts) ---\nconst ex = String(data.exercise).toLowerCase();\nif (ex.includes('yes') || ex.includes('gym') || ex.includes('run') || ex.includes('walk')) {\n  points += 10; badges.push('Active Student 🏃');\n  breakdown.push('Exercised: +10');\n}\n\n// --- Wellness Score Bonus (max 15 pts) ---\nif (totalScore >= 80) {\n  points += 15; badges.push('Wellness Champion 🏆');\n  breakdown.push('Score 80+: +15');\n} else if (totalScore >= 65) {\n  points += 10; badges.push('Wellness Warrior 💪');\n  breakdown.push('Score 65+: +10');\n} else if (totalScore >= 50) {\n  points += 5;\n  breakdown.push('Score 50+: +5');\n}\n\n// --- Symptom Severity Penalty ---\nif (severity >= 8) {\n  points = Math.max(0, points - 5);\n  breakdown.push('High Severity: -5');\n}\n\n// --- Achievement Level ---\nlet level = 'Beginner 🌱';\nif (points >= 60) level = 'Elite Wellness 🥇';\nelse if (points >= 45) level = 'Advanced 🥈';\nelse if (points >= 30) level = 'Intermediate 🥉';\nelse if (points >= 15) level = 'Progressing 📈';\n\nreturn [{\n  json: {\n    entryId: 'RP' + Date.now(),\n    date: data.timestamp,\n    studentId: data.studentId,\n    studentName: data.studentName,\n    slept7Plus: sleepHours >= 7 ? 'Yes' : 'No',\n    sleepPoints: sleepHours >= 8 ? 15 : sleepHours >= 7 ? 10 : sleepHours >= 6 ? 5 : 0,\n    drank2LPlus: (wi.includes('2l') || wi.includes('2-3') || wi.includes('3l')) ? 'Yes' : 'No',\n    waterPoints: wi.includes('3l') ? 15 : (wi.includes('2l') || wi.includes('2-3')) ? 10 : wi.includes('1l') ? 5 : 0,\n    lowScreenTime: screenTime <= 4 ? 'Yes' : 'No',\n    screenPoints: screenTime < 2 ? 10 : screenTime <= 4 ? 7 : screenTime <= 6 ? 3 : 0,\n    stressUnder5: stressLevel <= 5 ? 'Yes' : 'No',\n    stressPoints: stressLevel <= 3 ? 10 : stressLevel <= 5 ? 7 : stressLevel <= 7 ? 3 : 0,\n    exercised: (ex.includes('yes') || ex.includes('gym') || ex.includes('run') || ex.includes('walk')) ? 'Yes' : 'No',\n    exercisePoints: (ex.includes('yes') || ex.includes('gym') || ex.includes('run') || ex.includes('walk')) ? 10 : 0,\n    wellnessBonus: totalScore >= 80 ? 15 : totalScore >= 65 ? 10 : totalScore >= 50 ? 5 : 0,\n    dailyPointsTotal: points,\n    badgesEarned: badges.join(', ') || 'Keep going! 💙',\n    achievementLevel: level,\n    pointBreakdown: breakdown.join(' | ')\n  }\n}];"
+      },
+      "name": "Calculate Reward Points1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        1184
+      ],
+      "id": "ffe5b70e-4a8d-4174-9650-0eeca2872a7d"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_SHEET_ID_HERE",
+          "mode": "list",
+          "cachedResultName": "AI Health Tracker"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=7",
+          "mode": "list",
+          "cachedResultName": "Reward Points"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Entry ID": "={{ $json.entryId }}",
+            "Date": "={{ $json.date }}",
+            "Student ID": "={{ $json.studentId }}",
+            "Student Name": "={{ $json.studentName }}",
+            "Slept 7+ Hours": "={{ $json.slept7Plus }}",
+            "Sleep Points": "={{ $json.sleepPoints }}",
+            "Drank 2L+ Water": "={{ $json.drank2LPlus }}",
+            "Water Points": "={{ $json.waterPoints }}",
+            "Low Screen Time": "={{ $json.lowScreenTime }}",
+            "Screen Points": "={{ $json.screenPoints }}",
+            "Stress Under 5": "={{ $json.stressUnder5 }}",
+            "Stress Points": "={{ $json.stressPoints }}",
+            "Exercised": "={{ $json.exercised }}",
+            "Exercise Points": "={{ $json.exercisePoints }}",
+            "Wellness Bonus": "={{ $json.wellnessBonus }}",
+            "Daily Points Total": "={{ $json.dailyPointsTotal }}",
+            "Badges Earned": "={{ $json.badgesEarned }}",
+            "Achievement Level": "={{ $json.achievementLevel }}",
+            "Point Breakdown": "={{ $json.pointBreakdown }}"
+          }
+        },
+        "options": {}
+      },
+      "name": "Log Reward Points1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        2256,
+        1184
+      ],
+      "id": "bccc766d-aacd-4092-bd9e-8d1ec2e9a9a3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lzmyq8fbhsBAgcA1",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Parse AI Response1').first().json.studentEmail || 'student@example.com' }}",
+        "subject": "=Your Wellness Analysis — {{ $('Parse AI Response1').first().json.riskFlag }} Risk | Score: {{ $('Parse AI Response1').first().json.totalScore }}",
+        "message": "=<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden;\">\n\n<div style=\"background: linear-gradient(135deg, #667eea, #764ba2); padding: 24px; color: white; text-align: center;\">\n  <h1 style=\"margin:0; font-size: 22px;\">🌿 Student Wellness Report</h1>\n  <p style=\"margin: 6px 0 0;\">AI-Powered Health Analysis</p>\n</div>\n\n<div style=\"padding: 20px;\">\n  <p>Hi <strong>{{ $('Parse AI Response1').first().json.studentName }}</strong>! Here are your personalized wellness results.</p>\n\n  <h3 style=\"color: #667eea;\">🔍 Condition Assessment</h3>\n  <table style=\"width:100%; border-collapse: collapse;\">\n    <tr style=\"background:#f5f5f5;\"><th style=\"padding:8px; text-align:left;\">Condition</th><th>Probability</th><th>Confidence</th></tr>\n    <tr><td style=\"padding:8px;\">{{ $('Parse AI Response1').first().json.condition1 }}</td><td style=\"text-align:center;\">{{ $('Parse AI Response1').first().json.prob1 }}</td><td style=\"text-align:center;\">{{ $('Parse AI Response1').first().json.confidence1 }}</td></tr>\n    <tr style=\"background:#f9f9f9;\"><td style=\"padding:8px;\">{{ $('Parse AI Response1').first().json.condition2 }}</td><td style=\"text-align:center;\">{{ $('Parse AI Response1').first().json.prob2 }}</td><td style=\"text-align:center;\">{{ $('Parse AI Response1').first().json.confidence2 }}</td></tr>\n    <tr><td style=\"padding:8px;\">{{ $('Parse AI Response1').first().json.condition3 }}</td><td style=\"text-align:center;\">{{ $('Parse AI Response1').first().json.prob3 }}</td><td style=\"text-align:center;\">{{ $('Parse AI Response1').first().json.confidence3 }}</td></tr>\n  </table>\n  <p style=\"color:#555;\"><em>{{ $('Parse AI Response1').first().json.reasoning }}</em></p>\n\n  <h3 style=\"color: #667eea;\">💊 Remedy Suggestions</h3>\n  <ul>\n    <li>{{ $('Parse AI Response1').first().json.remedy1a }}</li>\n    <li>{{ $('Parse AI Response1').first().json.remedy1b }}</li>\n    <li>{{ $('Parse AI Response1').first().json.remedy2a }}</li>\n    <li>{{ $('Parse AI Response1').first().json.lifestyle }}</li>\n  </ul>\n\n  <h3 style=\"color: #667eea;\">💡 Personalized Wellness Tips</h3>\n  <ol>\n    <li>{{ $('Parse AI Response1').first().json.tip1 }}</li>\n    <li>{{ $('Parse AI Response1').first().json.tip2 }}</li>\n    <li>{{ $('Parse AI Response1').first().json.tip3 }}</li>\n  </ol>\n\n  <h3 style=\"color: #667eea;\">📊 Wellness Score: {{ $('Parse AI Response1').first().json.totalScore }}</h3>\n  <ul>\n    <li>Sleep: {{ $('Parse AI Response1').first().json.sleepScore }}</li>\n    <li>Hydration: {{ $('Parse AI Response1').first().json.hydrationScore }}</li>\n    <li>Stress: {{ $('Parse AI Response1').first().json.stressScore }}</li>\n    <li>Screen Time: {{ $('Parse AI Response1').first().json.screenScore }}</li>\n  </ul>\n\n  <h3 style=\"color: #667eea;\">🏆 Points & Rewards</h3>\n  <p><strong>Points Earned Today:</strong> {{ $json.dailyPointsTotal }}</p>\n  <p><strong>Badges:</strong> {{ $json.badgesEarned }}</p>\n  <p><strong>Level:</strong> {{ $json.achievementLevel }}</p>\n\n  <hr style=\"margin: 20px 0;\">\n\n  <div style=\"background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; border-radius: 4px;\">\n    <strong>⚠️ Important Disclaimer</strong><br>\n    This is an AI-generated analysis for educational and wellness awareness purposes ONLY. It is NOT a medical diagnosis. If you are experiencing severe or persistent symptoms, please consult a qualified healthcare professional immediately.\n    <br><br>\n    <strong>Risk Level: {{ $('Parse AI Response1').first().json.riskFlag }}</strong>\n    {{ $('Parse AI Response1').first().json.seeDoctor === 'Yes' ? '&nbsp;— <span style=\"color:red;\">Please consult a healthcare professional.</span>' : '' }}\n  </div>\n</div>\n\n<div style=\"background:#f5f5f5; padding: 12px; text-align: center; font-size: 11px; color: #999;\">\n  AI Health Tracker | Student Wellness Project | Not a substitute for medical advice\n</div>\n\n</div>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "name": "Send Email to Student1",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2496,
+        1184
+      ],
+      "id": "a8baabf6-b24a-4eee-bc13-d289eaf78282",
+      "webhookId": "7f6b2e6c-b790-4596-98a7-b33847b23a7c",
+      "notes": "Enable this to email results to students. Requires Gmail credential. studentEmail comes from the Google Form."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Log to Form Responses1": {
+      "main": [
+        [
+          {
+            "node": "Format ChatGPT Prompt1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format ChatGPT Prompt1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain1": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Response1": {
+      "main": [
+        [
+          {
+            "node": "Log to AI Output Log1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log to Wellness Tracker1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log to Knowledge Map",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log to Ethics & Bias Log",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log to Canva Report Data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Calculate Reward Points1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Reward Points1": {
+      "main": [
+        [
+          {
+            "node": "Log Reward Points1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Reward Points1": {
+      "main": [
+        [
+          {
+            "node": "Send Email to Student1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "62a04496-9317-48e1-a753-a4b505f49d8b",
+  "meta": {
+    "instanceId": "41aeca8a616adcfd848d64b5bfac4db79b64836f5275607b7d7b6e71e648510c"
+  },
+  "id": "r8peHIlxV9qDIpaY",
+  "tags": []
+}
