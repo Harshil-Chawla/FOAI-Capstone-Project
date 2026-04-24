@@ -1,0 +1,156 @@
+AI Health Symptom Checker & Wellness Tracker
+
+1. What is an AI Agent?
+An AI agent is any system that perceives its environment through inputs, processes that information, and takes actions to achieve a specific goal. It operates in a cycle of perceive → think → act.
+Our health assistant follows this exact cycle — it takes student health data as input, reasons about it using AI, and produces condition assessments and wellness recommendations as output.
+
+2. Agent Definition
+Component
+Definition
+Our System
+Agent
+The intelligent system doing the work
+AI Health Symptom Checker powered by ChatGPT
+Environment
+The world the agent operates in
+Student's health and lifestyle context
+Percepts
+What the agent perceives as input
+Symptoms, sleep hours, stress level, water intake, screen time
+Actions
+What the agent does with the input
+Analyze → Predict → Recommend → Warn
+Goal
+What the agent is trying to achieve
+Accurately identify probable health conditions and suggest remedies
+Performance Measure
+How we judge if the agent is doing well
+Prediction accuracy, relevance of tips, ethical compliance
+Knowledge Base
+What the agent knows
+Symptom-condition rules, remedy mappings, wellness guidelines
+
+
+3. How Our Agent Operates
+The agent follows a simple 4-step cycle every time a student submits the form:
+STEP 1 — PERCEIVE
+Student submits Google Form with symptoms 
+and lifestyle data
+        ↓
+STEP 2 — PROCESS
+ChatGPT analyzes the input using the 
+master prompt and knowledge base rules
+        ↓
+STEP 3 — REASON
+Agent assigns probability % to each 
+possible condition and assesses risk level
+        ↓
+STEP 4 — ACT
+Agent outputs:
+- Top 3 conditions with probabilities
+- Remedy suggestions
+- Personalized wellness tips
+- Risk flag
+- Wellness score
+- Health disclaimer
+
+4. Type of AI Agent
+Based on the classification from Module 1 (Lecture 1), our agent is a:
+Goal-Based + Utility-Based Agent
+Agent Type
+Description
+Does Our Agent Qualify?
+Simple Reflex
+Reacts to current input only
+Partially — it reads current symptoms
+Model-Based
+Maintains internal state/knowledge
+Yes — uses knowledge base rules
+Goal-Based
+Acts to achieve a specific goal
+Yes — goal is accurate health assessment
+Utility-Based
+Tries to maximize a performance score
+Yes — optimizes for wellness score accuracy
+Learning Agent
+Improves over time with experience
+Not yet — future scope
+
+Our agent is primarily goal-based and model-based because it uses a structured knowledge base and works toward a defined goal of helping students understand their health patterns.
+
+5. Environment Characteristics
+Property
+Type
+Explanation
+Observable
+Partially Observable
+Agent only knows what the student reports — hidden symptoms may exist
+Deterministic
+Stochastic
+Same symptoms can map to different conditions depending on context
+Episodic
+Episodic
+Each form submission is an independent episode
+Static vs Dynamic
+Static
+Environment doesn't change while agent is processing
+Discrete vs Continuous
+Discrete
+Inputs are selected from defined options in the form
+Single vs Multi Agent
+Single Agent
+One agent analyzing one student at a time
+
+
+6. Inputs & Outputs Summary
+Inputs (Percepts)
+Reported symptoms (checklist of 30+ options)
+Sleep hours (0–12)
+Stress level (1–10 scale)
+Water intake (Less than 1L / 1–2L / 2L+)
+Screen time (hrs)
+Symptom duration (days)
+Symptom severity (Mild / Moderate / Severe)
+Age range and gender (for bias monitoring)
+Outputs (Actions)
+Top 3 probable conditions with probability %
+Confidence score per condition (High / Medium / Low)
+Remedy suggestions (2 per condition)
+Personalized wellness tips (3 tips)
+Risk flag (🟢 Low / 🟡 Medium / 🔴 High)
+Wellness score (out of 100)
+Health disclaimer
+
+7. Ethical Considerations
+Since this agent operates in a health context, the following ethical standards are maintained:
+Concern
+How We Address It
+Not a medical replacement
+Disclaimer added to every output
+Bias by age/gender
+Age and gender collected to monitor for skewed predictions
+Overconfidence
+Confidence scores included so students know reliability
+Data privacy
+Student IDs are anonymous — no personal identifiers stored
+High risk cases
+Risk flag system alerts students to seek real medical help
+
+
+8. Limitations
+The agent cannot physically examine a patient
+It relies entirely on self-reported symptoms which may be inaccurate
+ChatGPT may occasionally hallucinate conditions not supported by symptoms
+It cannot learn or improve from past predictions (no training loop)
+Not suitable for diagnosing serious or chronic medical conditions
+
+9. Future Scope (Beyond This Project)
+Integrate a learning loop where prediction accuracy improves over time
+Connect to wearable data (heart rate, sleep trackers) for richer input
+Build a multi-agent system where a separate ethics agent monitors all outputs
+Add multilingual support for non-English speaking students
+
+Document prepared as part of Milestone 1 — AI Health Symptom Checker & Wellness Tracker project. Connects to Module 1: Core AI Concepts, Lecture 1.
+
+That's your complete document. Just copy this into a Notion page or Google Doc, add your name and date at the top, and it's ready to submit.
+It's also genuinely well-structured enough that it'll impress your professor since it goes beyond just the basics and covers agent types, environment properties, ethics, and limitations — all of which directly connect to AI course concepts. Want to move on to the Knowledge Base rules next?
